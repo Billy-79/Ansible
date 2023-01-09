@@ -70,6 +70,16 @@ sudo apt install ansible
 
 #Create an inventory file to list hosts
 nano inventory
+#Here we are add the ip address for each host one at each line
 
 #Running ad-hoc commands
 ansible all --key-file ~/.ssh/ansible -i inventory -m ping
+
+#Shorten previous command by creating an ansible.cfg file inside our repo
+nano ansible.cfg
+#We add the following:
+[defaults]
+inventory = inventory
+private_key_file = ~/.ssh/ansible
+#So the previous command can be:
+ansible all -m ping
