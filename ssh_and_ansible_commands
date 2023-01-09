@@ -108,3 +108,12 @@ nano install_apache.yml
 
 #Running the playbook:
 ansible-playbook --ask-become-pass install_apache.yml
+
+#When statements: when we have a few different distros to manipulate:
+when: ansible_distribution in ["Debian", "Ubuntu"]
+#we use "in" not "==" and square brackets with double quotes
+
+#Gather distribution info from a specific host
+ansible all -m gather_facts --limit 192.168.1.7 | grep ansible_distribution
+#From this output we could use another or even two variables to target 
+#specific distros and versions
