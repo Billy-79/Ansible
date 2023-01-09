@@ -59,4 +59,7 @@ alias ssha='eval $(ssh-agent) && ssh-add'
 #Then clone repository to our pc:
 git clone git@github.com:Billy-79/Ansible.git
 
-
+#Before start with git we should give it some info:
+git config --global user.name "Billy"
+git config --global user.email "learnlinuxtv@gmail.com"
+#These are stored at ~/.gitconfig
