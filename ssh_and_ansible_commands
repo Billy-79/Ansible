@@ -83,3 +83,11 @@ inventory = inventory
 private_key_file = ~/.ssh/ansible
 #So the previous command can be:
 ansible all -m ping
+
+#List the hosts
+ansible all --list-hosts
+
+#Gather info from all servers
+ansible all -m gather_facts
+#Gather info from a specific host
+ansible all -m gather_facts --limit 192.168.1.7
