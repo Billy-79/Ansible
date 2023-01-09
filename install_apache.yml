@@ -4,13 +4,9 @@
   become: true
   tasks:
 
-  - name: update repository index (Ubuntu)
+  - name: update repository index & install apache2 and php packages (Ubuntu)
     apt:
       update_cache: yes
-    when: ansible_distribution == "Ubuntu"
-
-  - name: install apache2 and php packages (Ubuntu)
-    apt:
       name:
         - apache2
         - libapache2-mod-php
@@ -18,13 +14,9 @@
     when: ansible_distribution == "Ubuntu"
 
 
-  - name: update repository index (Fedora)
+  - name: update repository index & install apache2 and php packages (Fedora)
     dnf:
       update_cache: yes
-    when: ansible_distribution == "Fedora"
-
-  - name: install apache2 and php packages (Fedora)
-    dnf:
       name:
         - httpd
         - php
