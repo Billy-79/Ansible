@@ -93,7 +93,7 @@ ansible all -m gather_facts --limit 192.168.1.7
 
 #Running ad-hoc commands with elevated privileges
 ansible all -m apt -a update_cache=true --become --ask-become-pass
-#the previous is equal to "sudo apt update"
+#e.g. the previous is equal to "sudo apt update"
 #install vim-nox and htop packages to all hosts
 ansible all -m apt -a name=vim-nox --become --ask-become-pass
 ansible all -m apt -a name=htop --become --ask-become-pass
@@ -101,3 +101,10 @@ ansible all -m apt -a name=htop --become --ask-become-pass
 ansible all -m apt -a "name=vim-nox state=latest" --become --ask-become-pass
 #Updade the system by installing all updates
 ansible all -m apt -a upgrade=full --become --ask-become-pass
+
+#Writing our first playbook:
+nano install_apache.yml
+#VERY IMPORTANT is spacing (indentation) and the .yml extension
+
+#Running the playbook:
+ansible-playbook --ask-become-pass install_apache.yml
