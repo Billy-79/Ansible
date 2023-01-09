@@ -117,3 +117,11 @@ when: ansible_distribution in ["Debian", "Ubuntu"]
 ansible all -m gather_facts --limit 192.168.1.7 | grep ansible_distribution
 #From this output we could use another or even two variables to target 
 #specific distros and versions
+
+#With RedHat like distros such as Fedora the apache service (httpd)
+#doesn't start automatically after installation or enabled on startup
+#Moreover, listening port 80 does not open automatically, so
+#use the following commands:
+sudo systemctl enable httpd
+sudo systemctl start httpd
+sudo firewall-cmd --add-port=80/tcp
