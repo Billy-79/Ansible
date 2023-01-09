@@ -1,0 +1,54 @@
+#Make initial connection
+ssh 192.168.1.7   --then-> type yes --then-> type password
+ssh 192.168.1.13   --then-> type yes --then-> type password
+
+# Generating ssh key
+ls -la .ssh
+ssh-keygen -t ed25519 -C "billy default"
+#then accept default path /home/billy/.ssh/id_ed25519 
+# and enter a passphrase twice to confirm
+ls -la .ssh
+#id_ed25519.pub is the private key
+# id_ed25519 is the private key (KEEP IT SECRET)
+
+#Add/copy ssh key to the server
+ssh-copy-id -i ~/.ssh/id_ed25519.pub 192.168.1.7  -then-> enter password
+ssh-copy-id -i ~/.ssh/id_ed25519.pub 192.168.1.13  -then-> enter password
+
+#Connect using the ssh key
+ssh 192.168.1.7   --then-> type passphrase
+ssh 192.168.1.13   --then-> type passphrase
+
+#Generating ssh key that is dedicated only to ansible
+ssh-keygen -t ed25519 -C "ansible"
+#then accept default path, but give a different name 
+# /home/billy/.ssh/ansible
+#BUT DON'T CREATE A PASSPHRASE to have the ability to auto-login
+
+#Add/copy ansible ssh key to the server
+ssh-copy-id -i ~/.ssh/ansible.pub 192.168.1.7  -then-> enter passphrase
+ssh-copy-id -i ~/.ssh/ansible.pub 192.168.1.13  -then-> enter passphrase
+#You must enter the passphrase for the default key: id_ed25519.pub
+
+#How to use ansible key / how to tell which key to use
+ssh -i ~/.ssh/ansible 192.168.1.7
+ssh -i ~/.ssh/ansible 192.168.1.13
+#NOTICE that it connects automatically as there is no passphrase
+# VERY IMPORTANT TO KEEP ANSIBLE KEY SECRET
+
+#If you terminate terminal session you should enter the passphrase
+# again to connect. A solution is to use ssh-agent to cache the passphrase
+# in order to auto-login. Use the following method:
+eval $(ssh-agent)
+#That give us the process id of the process running in the background
+ps aux | grep 2362 
+#Where 2362 is the process id. Now that we confirm the process is
+# running in the background, we can run the following command:
+ssh-add   --then-> enter the passphrase for id_ed25519.pub key
+#Now if you do:
+ssh 192.168.1.7
+#It will connect you automatically, but it is not permanent
+# If we close the terminal we should cache it again to the ssh-agent
+# The solution is to add an alias for the command:
+alias ssha='eval $(ssh-agent) && ssh-add'
+#Finally we can store that alias to our .bashrc file to make it permanent
