@@ -63,3 +63,9 @@ git clone git@github.com:Billy-79/Ansible.git
 git config --global user.name "Billy"
 git config --global user.email "learnlinuxtv@gmail.com"
 #These are stored at ~/.gitconfig
+
+#Install ansible
+sudo apt update
+sudo apt install ansible
+#Create an inventory file to list hosts
+nano inventory
