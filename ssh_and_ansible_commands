@@ -67,5 +67,9 @@ git config --global user.email "learnlinuxtv@gmail.com"
 #Install ansible
 sudo apt update
 sudo apt install ansible
+
 #Create an inventory file to list hosts
 nano inventory
+
+#Running ad-hoc commands
+ansible all --key-file ~/.ssh/ansible -i inventory -m ping
