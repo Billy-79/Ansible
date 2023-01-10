@@ -131,3 +131,6 @@ ansible-playbook --list-tags site.yml
 
 #To run playbook with tags to target specific hosts:
 ansible-playbook --tags samba --ask-become-pass site.yml
+
+#To run multiple tags:
+ansible-playbook --tags "samba,ubuntu" --ask-become-pass site.yml
