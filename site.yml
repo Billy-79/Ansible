@@ -5,12 +5,14 @@
   pre_tasks:
 
   - name: Install updates for Ubuntu servers
+    tags: always
     apt:
       upgrade: full
       update_cache: yes
     when: ansible_distribution == "Ubuntu"
 
   - name: Install updates for Fedora servers
+    tags: always
     dnf:
       update_only: yes
       update_cache: yes
@@ -22,6 +24,7 @@
   tasks:
 
   - name: Install apache and php for Ubuntu servers
+    tags: apache,apache2,ubuntu
     apt:
       name:
         - apache2
@@ -30,6 +33,7 @@
     when: ansible_distribution == "Ubuntu"
 
   - name: Install apache and php for Fedora servers
+    tags: apache,httpd,fedora
     dnf:
       name:
         - httpd
@@ -43,12 +47,14 @@
   tasks:
 
   - name: Install mariadb for Ubuntu servers
+    tags: db,mariadb,ubuntu
     apt:
       name: mariadb-server
       state: latest
     when: ansible_distribution == "Ubuntu"
 
   - name: Install mariadb for Fedora servers
+    tags: db,mariadb,fedora
     dnf:
       name: mariadb
       state: latest
@@ -60,6 +66,7 @@
   tasks:
 
   - name: Install samba package
+    tags: samba
     package:
       name: samba
       state: latest
