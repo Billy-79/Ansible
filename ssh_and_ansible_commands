@@ -125,3 +125,9 @@ ansible all -m gather_facts --limit 192.168.1.7 | grep ansible_distribution
 sudo systemctl enable httpd
 sudo systemctl start httpd
 sudo firewall-cmd --add-port=80/tcp
+
+#To list all the tags inside a playbook:
+ansible-playbook --list-tags site.yml
+
+#To run playbook with tags to target specific hosts:
+ansible-playbook --tags samba --ask-become-pass site.yml
