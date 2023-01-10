@@ -1,0 +1,38 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+
+  - name: Install updates for Ubuntu servers
+    apt:
+      upgrade: full
+      update_cache: yes
+    when: ansible_distribution == "Ubuntu"
+
+  - name: Install updates for Fedora servers
+    dnf:
+      update_only: yes
+      update_cache: yes
+    when: ansible_distribution == "Fedora"
+
+
+- hosts: web_servers
+  become: true
+  tasks:
+
+  - name: Install apache and php for Ubuntu servers
+    apt:
+      name:
+        - apache2
+        - libapache2-mod-php
+      state: latest
+    when: ansible_distribution == "Ubuntu"
+
+  - name: Install apache and php for Fedora servers
+    dnf:
+      name:
+        - httpd
+        - php
+      state: latest
+    when: ansible_distribution == "Fedora"
