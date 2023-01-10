@@ -36,3 +36,20 @@
         - php
       state: latest
     when: ansible_distribution == "Fedora"
+
+
+- hosts: db_servers
+  become: true
+  tasks:
+
+  - name: Install mariadb for Ubuntu servers
+    apt:
+      name: mariadb-server
+      state: latest
+    when: ansible_distribution == "Ubuntu"
+
+  - name: Install mariadb for Fedora servers
+    dnf:
+      name: mariadb
+      state: latest
+    when: ansible_distribution == "Fedora"
