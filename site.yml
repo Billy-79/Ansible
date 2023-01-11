@@ -64,6 +64,7 @@
     service:
       name: httpd
       state: started
+      enabled: yes
     when: ansible_distribution == "Fedora"
 
   - name: Copy default html file for site
