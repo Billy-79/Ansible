@@ -67,6 +67,23 @@
       enabled: yes
     when: ansible_distribution == "Fedora"
 
+  - name: Change E-mail address for admin in Fedora servers
+    tags: apache,httpd,fedora
+    lineinfile:
+      path: /etc/httpd/conf/httpd.conf
+      regexp: '^ServerAdmin'
+      line: ServerAdmin somebody@somewhere.net
+    when: ansible_distribution == "Fedora"
+    register: httpd
+
+  - name: Restart httpd service for Fedora servers
+    tags: apache,httpd,fedora
+    service:
+      name: httpd
+      state: restarted
+    when: httpd.changed
+
+
   - name: Copy default html file for site
     tags: apache,apache2,httpd
     copy:
