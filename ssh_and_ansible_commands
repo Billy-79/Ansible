@@ -134,3 +134,14 @@ ansible-playbook --tags samba --ask-become-pass site.yml
 
 #To run multiple tags:
 ansible-playbook --tags "samba,ubuntu" --ask-become-pass site.yml
+
+#When we make more than one change to a config file in a webserver and 
+#store that change to a variable in a playbook (e.g. register: httpd), 
+#we should save each status (change/no change) with a different variable 
+#name. That because if we have two tasks in which the first only made 
+#a change and store it in e.g. httpd variable and the second task (which 
+#doesn't make a change) store it also in e.g. httpd, it will replace the 
+#status in the variable as no change and the next task will not restart 
+#the httpd service. The only difference is to check both/all variables if 
+#they had a change "status: true".
+
