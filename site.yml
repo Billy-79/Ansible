@@ -23,22 +23,37 @@
   become: true
   tasks:
 
-  - name: create s1m0ne user
+  - name: Create simone user
     tags: always
     user:
-      name: s1m0ne
+      name: simone
       groups: root
+
+  - name: Add SSH key for simone user
+    tags: always
+    authorized_key:
+      user: simone
+      key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN9cG64o3bOBl0b89QQuhO46dDyEnLF5NBJ6KDEJTHth Ansible"
+
+  - name: Add sudoers file for simone user
+    tags: always
+    copy:
+      src: sudoer_simone
+      dest: /etc/sudoers.d/simone
+      owner: root
+      group: root
+      mode: 0440
 
 
 - hosts: workstations
   become: true
   tasks:
 
-  - name: install unzip
+  - name: Install unzip
     package:
       name: unzip
 
-  - name: install terraform
+  - name: Install terraform
     unarchive:
       src: https://releases.hashicorp.com/terraform/0.12.28/terraform_0.12.28_linux_amd64.zip
       dest: /usr/local/bin
@@ -70,7 +85,7 @@
       state: latest
     when: ansible_distribution == "Fedora"
 
-  - name: start httpd service for Fedora servers
+  - name: Start httpd service for Fedora servers
     tags: apache,httpd,fedora
     service:
       name: httpd
