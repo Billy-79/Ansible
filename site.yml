@@ -4,18 +4,18 @@
   become: true
   pre_tasks:
 
-  - name: Install updates for Ubuntu servers
+  - name: Update repository index for Ubuntu servers
     tags: always
     apt:
-      upgrade: full
       update_cache: yes
+    changed_when: false
     when: ansible_distribution == "Ubuntu"
 
-  - name: Install updates for Fedora servers
+  - name: Update repository index for Fedora servers
     tags: always
     dnf:
-      update_only: yes
       update_cache: yes
+    changed_when: false
     when: ansible_distribution == "Fedora"
 
 
@@ -23,26 +23,11 @@
   become: true
   tasks:
 
-  - name: Create simone user
-    tags: always
-    user:
-      name: simone
-      groups: root
-
   - name: Add SSH key for simone user
     tags: always
     authorized_key:
       user: simone
       key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN9cG64o3bOBl0b89QQuhO46dDyEnLF5NBJ6KDEJTHth Ansible"
-
-  - name: Add sudoers file for simone user
-    tags: always
-    copy:
-      src: sudoer_simone
-      dest: /etc/sudoers.d/simone
-      owner: root
-      group: root
-      mode: 0440
 
 
 - hosts: workstations
