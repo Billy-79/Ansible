@@ -1,13 +1,5 @@
-- name: Install mariadb for Ubuntu servers
-  tags: db,mariadb,ubuntu
-  apt:
-    name: mariadb-server
+- name: Install mariadb package
+  tags: db,mariadb
+  package:
+    name: "{{ mariadb_package_name }}"
     state: latest
-  when: ansible_distribution == "Ubuntu"
-
-- name: Install mariadb for Fedora servers
-  tags: db,mariadb,fedora
-  dnf:
-    name: mariadb
-    state: latest
-  when: ansible_distribution == "Fedora"
