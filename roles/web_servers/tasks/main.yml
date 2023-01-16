@@ -13,7 +13,7 @@
     state: started
     enabled: yes
 
-- name: Change E-mail address for admin
+- name: Change E-mail address for admin (Fedora)
   tags: apache,httpd,fedora
   lineinfile:
     path: /etc/httpd/conf/httpd.conf
