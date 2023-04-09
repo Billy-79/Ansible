@@ -39,12 +39,12 @@ ssh -i ~/.ssh/ansible 192.168.1.13
 #If you terminate terminal session you should enter the passphrase
 #again to connect. A solution is to use ssh-agent to cache the passphrase
 #in order to auto-login. Use the following method:
-eval $(ssh-agent)
+eval "$(ssh-agent)"
 #That give us the process id of the process running in the background
 ps aux | grep 2362 
 #Where 2362 is the process id. Now that we confirm the process is
 #running in the background, we can run the following command:
-ssh-add   --then-> enter the passphrase for id_ed25519.pub key
+ssh-add ~/.ssh/ansible   --then-> enter the passphrase for id_ed25519.pub key
 #Now if you do:
 ssh 192.168.1.7
 #It will connect you automatically, but it is not permanent
